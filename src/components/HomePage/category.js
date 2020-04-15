@@ -7,7 +7,7 @@ const Category = ({ category, navigation }) => {
     let imgSrc = category.icon;
     return (
         <View style={ styles.categoryContainer  }>
-            <TouchableOpacity style={ styles.categoryButton } onPress={() => { navigation.navigate('ShopList') }}>
+            <TouchableOpacity style={ styles.categoryButton } onPress={() => { navigation.navigate('AddUser') }}>
                 <FastImage source={ imgSrc } style={ styles.categoryIcon } />
                 <Text style={ styles.categoryName }>{ category.name }</Text>
             </TouchableOpacity>

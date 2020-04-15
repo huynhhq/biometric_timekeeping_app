@@ -25,7 +25,7 @@ class HomePage extends Component {
           <View style={ styles.categoryRowContainer }>
               <Text style={ styles.groupTitle }>USER MANAGEMENT</Text>
               <View style={ styles.categoryRow }>
-                <Category category={ CATEGORIES[0] } navigation={ navigation } />
+                <Category category={ CATEGORIES[0] } navigation={navigation} />
                 <Category category={ CATEGORIES[1] } navigation={ navigation } />
               </View>
               <View style={ styles.categoryRow }>

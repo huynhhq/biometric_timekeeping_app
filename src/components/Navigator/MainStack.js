@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import { createStackNavigator, createAppContainer, createBottomTabNavigator, NavigationEvents } from "react-navigation";
+import { createStackNavigator, createAppContainer} from "react-navigation";
 import DefaultHeader from './DefaultHeader';
 import mainConstants from "../MainConstants";
 
 import HomePage from "../HomePage";
+import AddUser from "../AddUser";
 
 let MainNavigation = {
     HomePage: {
 		screen: HomePage,
 	},
+	AddUser: {
+		screen: AddUser
+	}
 };
 
 const MainNav = createStackNavigator({...MainNavigation},
@@ -17,7 +21,7 @@ const MainNav = createStackNavigator({...MainNavigation},
 		initialRouteName: 'HomePage',
 		defaultNavigationOptions: ({ navigation }) => ({			
 			headerTitle: <DefaultHeader title="Timekeeping Management" navigation={ navigation } />,
-			headerRight: <View style={{ width: 50 }} />,
+			
 			headerStyle: {
 				backgroundColor: mainConstants.MAIN_COLOR,
 				color: '#ffffff',

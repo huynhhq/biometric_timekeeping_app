@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class DeleteUser extends Component {
+class ExportCsv extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,10 +11,10 @@ class DeleteUser extends Component {
   render() {
     return (
       <View>
-        <Text> index </Text>
+        <Text> styles </Text>
       </View>
     );
   }
 }
 
-export default DeleteUser;
+export default ExportCsv;
