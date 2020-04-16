@@ -1,11 +1,13 @@
-import React, { Component } from "react";
-import { View } from "react-native";
+import React from "react";
 import { createStackNavigator, createAppContainer} from "react-navigation";
 import DefaultHeader from './DefaultHeader';
 import mainConstants from "../MainConstants";
 
 import HomePage from "../HomePage";
 import AddUser from "../AddUser";
+import FingerList from "../FingerList";
+import UserList from "../UserList";
+import AttendanceList from "../AttendanceList";
 
 let MainNavigation = {
     HomePage: {
@@ -13,6 +15,15 @@ let MainNavigation = {
 	},
 	AddUser: {
 		screen: AddUser
+	},
+	FingerList: {
+		screen: FingerList
+	},
+	UserList: {
+		screen: UserList
+	},
+	AttendanceList: {
+		screen: AttendanceList
 	}
 };
 

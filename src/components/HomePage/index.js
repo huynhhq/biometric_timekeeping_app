@@ -5,10 +5,10 @@ import Category from './category';
 import styles from './styles';
 
 const CATEGORIES = [
-  { id: 1, name: 'Add User', icon: require( '../../assets/add-user.png' ) },
-  { id: 2, name: 'User List', icon: require( '../../assets/user-list.png' ) },
-  { id: 3, name: 'Delete User', icon: require( '../../assets/delete-user.png' ) },
-  { id: 4, name: 'Export CSV', icon: require( '../../assets/export-csv.png' ) },  
+  { id: 1, name: 'Add User', icon: require( '../../assets/add-user.png' ), route: 'AddUser' },
+  { id: 2, name: 'User List', icon: require( '../../assets/user-list.png' ), route: 'UserList'},
+  { id: 3, name: 'Finger List', icon: require( '../../assets/fingerprint.jpeg' ), route: 'FingerList' },
+  { id: 4, name: 'Attendance List', icon: require( '../../assets/attendance.png' ), route: 'AttendanceList' },  
 ];
 
 class HomePage extends Component {
