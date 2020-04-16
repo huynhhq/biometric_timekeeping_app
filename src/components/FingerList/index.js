@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import { Table, Row } from 'react-native-table-component';
+import { View, ScrollView, Text, TouchableOpacity, Alert } from 'react-native';
+import { Table, Row, TableWrapper, Cell } from 'react-native-table-component';
 import styles from './styles';
 import BackBtn from '../BackButton';
 import Header from '../Navigator/Header';
 import mainConstants from "../MainConstants";
-import { getFingerList } from '../../api/FingerServices';
+import { getFingerList, deleteFingerbyId } from '../../api/FingerServices';
+import NotificationHandler from '../SharePage/NotificationHandler';
 
 export default class FingerList extends Component {
+
+  loading = null;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +19,7 @@ export default class FingerList extends Component {
       widthArr: [90, 90, 80, 100, 120, 120, 90, 90],
       tableData: null
     }
+    this.loading = React.createRef();
     this.initializeData();
   }
 
@@ -41,7 +46,8 @@ export default class FingerList extends Component {
           console.log( 'FINGER: ', fingers );
           const tableData = [];
           for (let index = 0; index < fingers.length; index++) {
-              const element = fingers[index];        
+              const element = fingers[index]; 
+              element.btnid = element.id;
               tableData.push( Object.values( element ) );
           }
 
@@ -56,28 +62,53 @@ export default class FingerList extends Component {
     });  
   }
  
+  deleteFinger(data) {
+    deleteFingerbyId(data, (status, response)=>{
+      
+      if( status )
+      {
+        this.initializeData();
+        this.loading.current._showSuccessNotification( response );
+      }
+      else
+      {
+        this.loading.current._showErrorNotificationmysq( response );
+      }
+    });
+  }
+ 
   render() {
     const state = this.state;     
+
+    const element = (data, index) => (
+      <TouchableOpacity onPress={() => this.deleteFinger(data)}>
+        <View style={styles.btn}>
+          <Text style={styles.btnText}>Delete</Text>
+        </View>
+      </TouchableOpacity>
+    );
+
     return (
       <View style={styles.container}>
+        <NotificationHandler ref={this.loading} />  
         <ScrollView horizontal={true}>
           <View>
-            <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
-              <Row data={state.tableHead} widthArr={state.widthArr} style={styles.header} textStyle={styles.text}/>
-            </Table>
+            
             <ScrollView style={styles.dataWrapper}>
               {
                 state.tableData != null ?
                 <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
+                  <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
                     {
                         state.tableData.map((rowData, index) => (
-                            <Row
-                            key={index}
-                            data={rowData}
-                            widthArr={state.widthArr}
-                            style={[styles.row, index%2 && {backgroundColor: '#F7F6E7'}]}
-                            textStyle={styles.text}
-                            />
+                          <TableWrapper key={index} style={styles.row}>
+                            {
+                              rowData.map((cellData, cellIndex) => (
+                                <Cell key={cellIndex} data={cellIndex === 7 ? element(cellData, index) : cellData} textStyle={styles.text}/>
+                              ))
+                            }
+                          </TableWrapper>
+                           
                         ))
                     }
                 </Table>
